@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brew & Co. — Cà phê & Đồ uống</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+    <div class="nav-inner">
+
+        <div class="brand">☕ Brew &amp; Co.</div>
+
+        <nav class="nav-links">
+            <a href="#menu-section">Thực đơn</a>
+            <a href="#booking-section">Đặt bàn</a>
+            <a href="#payment-section">Thanh toán</a>
+            <a href="#complaint-section">Liên hệ</a>
+        </nav>
+
+        <button id="adminBtn" onclick="window.location.href='admin.html'">
+            ⚙ Quản lý
+        </button>
+
+    </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-content">
+        <span class="hero-tag">Cà phê thủ công mỗi ngày</span>
+        <h1>Thưởng thức ly cà phê hoàn hảo của bạn</h1>
+        <p>Chọn món, đặt bàn và thanh toán nhanh chóng — tất cả trong một nơi.</p>
+        <a href="#menu-section" class="hero-btn">Xem thực đơn →</a>
+    </div>
+</section>
+
+<!-- MAIN -->
+<main class="container">
+
+    <div class="shop-layout">
+
+        <!-- MENU -->
+        <section id="menu-section" class="menu-panel">
+
+            <div class="panel-head">
+                <h2>🍹 Thực Đơn</h2>
+
+                <div class="filters">
+                    <input type="text" id="search" placeholder="🔍 Tìm món...">
+
+                    <select id="categoryFilter">
+                        <option value="all">Tất cả</option>
+                        <option value="Cà phê">Cà phê</option>
+                        <option value="Trà">Trà</option>
+                        <option value="Sinh tố">Sinh tố</option>
+                        <option value="Nước ép">Nước ép</option>
+                        <option value="Bánh">Bánh</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="menu"></div>
+
+        </section>
+
+        <!-- GIỎ HÀNG + THANH TOÁN (sticky) -->
+        <aside class="cart-panel">
+
+            <h2>🛒 Giỏ Hàng</h2>
+
+            <div id="cart"></div>
+
+            <div class="summary">
+                <p>Tạm tính: <span><span id="subtotal">0</span> VNĐ</span></p>
+                <p>Phí dịch vụ (5%): <span><span id="serviceFee">0</span> VNĐ</span></p>
+                <h3>Tổng cộng: <span><span id="total">0</span> VNĐ</span></h3>
+            </div>
+
+            <!-- THANH TOÁN -->
+            <div id="payment-section" class="pay-block">
+
+                <h3>💳 Thanh Toán</h3>
+
+                <select id="paymentMethod">
+                    <option>Tiền mặt</option>
+                    <option>MoMo</option>
+                    <option>Chuyển khoản</option>
+                    <option>Thẻ ngân hàng</option>
+                </select>
+
+                <div id="paymentInfo"></div>
+
+                <button class="pay-btn" onclick="checkout()">Thanh Toán</button>
+
+                <p id="orderResult"></p>
+
+            </div>
+
+        </aside>
+
+    </div>
+
+    <!-- ĐẶT BÀN + KHIẾU NẠI -->
+    <div class="info-grid">
+
+        <!-- ĐẶT BÀN -->
+        <section id="booking-section" class="info-card">
+
+            <h2>📅 Đặt Bàn</h2>
+
+            <form id="bookingForm">
+
+                <input type="text" id="customerName"
+                    placeholder="Tên khách hàng" required>
+
+                <input type="tel" id="customerPhone"
+                    placeholder="Số điện thoại" required>
+
+                <input type="datetime-local"
+                    id="bookingTime" required>
+
+                <input type="number"
+                    id="peopleCount"
+                    placeholder="Số người" required>
+
+                <select id="tableSelect" required>
+                    <option value="">Chọn bàn</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                    <option>10</option>
+                    <option>11</option>
+                    <option>12</option>
+                    <option>13</option>
+                </select>
+
+                <textarea id="note"
+                    placeholder="Ghi chú"></textarea>
+
+                <button type="submit">Đặt Bàn</button>
+
+            </form>
+
+            <p id="bookingMessage"></p>
+
+        </section>
+
+        <!-- KHIẾU NẠI -->
+        <section id="complaint-section" class="info-card">
+
+            <h2>📣 Khiếu Nại</h2>
+
+            <form id="complaintForm">
+                <input type="text" placeholder="Họ tên" required>
+
+                <select required>
+                    <option>Dịch vụ</option>
+                    <option>Đồ uống</option>
+                    <option>Thanh toán</option>
+                    <option>Nhân viên</option>
+                    <option>Đặt bàn</option>
+                    <option>Khác</option>
+                </select>
+
+                <textarea placeholder="Nội dung khiếu nại"></textarea>
+
+                <button type="submit">Gửi</button>
+            </form>
+
+            <p id="complaintMessage"></p>
+
+        </section>
+
+    </div>
+
+</main>
+
+<footer class="site-footer">
+    <p>© 2026 Brew &amp; Co. — Coffee Management System</p>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
