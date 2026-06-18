@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Quản Lý Quán Cà Phê</title>
+
+    <link rel="stylesheet" href="css/qly.css">
+</head>
+<body>
+
+    <!-- MAIN -->
+    <div id="mainApp" class="app">
+
+        <aside class="sidebar">
+
+            <h2>☕ Brew & Co.</h2>
+
+            <button onclick="showPage('dashboard')">
+                <span class="nav-ico">📊</span> Dashboard
+            </button>
+
+            <button onclick="showPage('menu')">
+                <span class="nav-ico">📋</span> Menu
+            </button>
+
+            <button onclick="showPage('tables')">
+                <span class="nav-ico">🪑</span> Bàn
+            </button>
+
+            <button onclick="showPage('employees')">
+                <span class="nav-ico">👨‍💼</span> Nhân viên
+            </button>
+
+            <button onclick="showPage('orders')">
+                <span class="nav-ico">🛒</span> Đơn hàng
+            </button>
+
+            <div class="sidebar-bottom">
+                <button
+                id="adminBtn"
+                onclick="window.location.href='index.html'">
+                    <span class="nav-ico">🚪</span> Đăng Xuất
+                </button>
+
+                <button onclick="resetRevenue()" class="reset-btn">
+                    ♻️ Reset doanh thu
+                </button>
+            </div>
+        </aside>
+
+        <div class="main-wrap">
+
+        <main class="content">
+
+            <!-- DASHBOARD -->
+<section id="dashboard" class="page active">
+
+    <h2>📊 Tổng Quan Quán Cà Phê</h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>💰 Tổng Doanh Thu</h3>
+            <p id="revenueValue">0 ₫</p>
+        </div>
+
+        <div class="card">
+            <h3>📅 Doanh Thu Hôm Nay</h3>
+            <p id="todayRevenue">0 ₫</p>
+        </div>
+
+        <div class="card">
+            <h3>🧾 Đơn Hàng</h3>
+            <p id="orderCount">0</p>
+        </div>
+
+        <div class="card">
+            <h3>🪑 Bàn</h3>
+            <p id="tableCount">0</p>
+        </div>
+
+        <div class="card">
+            <h3>👨‍💼 Nhân Viên</h3>
+            <p id="employeeCount">0</p>
+        </div>
+
+    </div>
+
+    <!-- Đơn hàng gần đây -->
+    <div class="dashboard-box">
+
+        <h3>🧾 Lịch Sử Đơn Hàng</h3>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Mã Đơn</th>
+                    <th>Thời Gian</th>
+                    <th>Tổng Tiền</th>
+                </tr>
+            </thead>
+
+            <tbody id="orderHistory">
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+            <!-- MENU -->
+            <section id="menu" class="page">
+
+                <div class="header-row">
+                    <h2>Quản lý Menu</h2>
+
+                    <button onclick="openMenuModal()">
+                        + Thêm món
+                    </button>
+                </div>
+
+                <input
+                    type="text"
+                    id="menuSearch"
+                    placeholder="Tìm món..."
+                    onkeyup="searchMenu()">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Tên món</th>
+                            <th>Loại</th>
+                            <th>Giá</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="menuTable">
+                    </tbody>
+
+                </table>
+
+            </section>
+
+            <!-- TABLES -->
+             <!-- TABLES -->
+<section id="tables" class="page">
+
+    <div class="table-top">
+
+        <h2>📋 Quản Lý Bàn</h2>
+
+        <div id="tableStats"></div>
+
+        <button onclick="addTable()">
+            ➕ Thêm Bàn
+        </button>
+
+    </div>
+
+    <div id="tableGrid"></div>
+
+</section>
+
+            <!-- EMPLOYEE -->
+            <section id="employees" class="page">
+
+                <div class="header-row">
+                    <h2>Nhân viên</h2>
+
+                    <button onclick="openEmployeeModal()">
+                        + Thêm nhân viên
+                    </button>
+                </div>
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Họ tên</th>
+                            <th>Chức vụ</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="employeeTable">
+                    </tbody>
+
+                </table>
+
+            </section>
+
+            <!-- ORDERS -->
+            <section id="orders" class="page">
+
+    <h2>🛒 Tạo Đơn Hàng</h2>
+
+    <!-- Danh sách món -->
+    <div id="menuOrderList"></div>
+
+    <!-- Giỏ hàng hiện tại -->
+    <div class="order-box">
+
+        <h3>Đơn Hàng Hiện Tại</h3>
+
+        <div id="currentOrder"></div>
+
+        <hr>
+
+        <div class="order-summary">
+
+            <p>
+                Tạm tính:
+                <span id="subtotal">0</span> ₫
+            </p>
+
+            <p>
+                Phí phục vụ (5%):
+                <span id="serviceFee">0</span> ₫
+            </p>
+
+            <h3>
+                Tổng:
+                <span id="total">0</span> ₫
+            </h3>
+
+        </div>
+
+        <div class="order-actions">
+
+            <button onclick="clearCart()">
+                🗑 Xóa Giỏ Hàng
+            </button>
+
+            <button onclick="checkout()">
+                💳 Thanh Toán
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+            <!-- REPORT -->
+            <section id="report" class="page">
+
+                <h2>Thống kê doanh thu</h2>
+
+                <canvas id="revenueChart"></canvas>
+
+            </section>
+
+        </main>
+
+        <footer class="admin-footer">
+            <p>© 2026 Brew & Co. Coffee Management System</p>
+        </footer>
+
+        </div><!-- /main-wrap -->
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/modal.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/table.js"></script>
+    <script src="js/empolyee.js"></script>
+    <script src="js/oder.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/app.js"></script>
+<div id="modalContainer"></div>
+</body>
+
+</html>

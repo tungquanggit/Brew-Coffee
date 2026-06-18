@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng nhập quản lý quán cà phê</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+        background: url('background-login.jpg') center / cover no-repeat fixed;
+      }
+
+      .login-box {
+        background: rgba(255, 255, 255, 0.92);
+        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);
+        padding: 40px 34px;
+        width: 370px;
+        max-width: 100%;
+        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+        animation: fadeUp 0.5s ease;
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(18px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .login-box h1 {
+        text-align: center;
+        margin-bottom: 6px;
+        color: #3e2723;
+        font-size: 30px;
+      }
+
+      .login-box p {
+        text-align: center;
+        margin-bottom: 22px;
+        color: #6d4c41;
+      }
+
+      .login-box input {
+        width: 100%;
+        padding: 13px 14px;
+        margin: 8px 0;
+        border: 1px solid #d9cfca;
+        border-radius: 10px;
+        background: #fbf9f8;
+        font-size: 15px;
+        transition: 0.25s;
+      }
+
+      .login-box input:focus {
+        outline: none;
+        border-color: #6f4e37;
+        background: #fff;
+        box-shadow: 0 0 0 3px rgba(111, 78, 55, 0.15);
+      }
+
+      .login-btn {
+        width: 100%;
+        padding: 13px;
+        border: none;
+        background: #6f4e37;
+        color: white;
+        border-radius: 10px;
+        cursor: pointer;
+        margin-top: 14px;
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+        transition: 0.25s;
+      }
+
+      .login-btn:hover {
+        background: #5d4037;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 18px rgba(62, 39, 35, 0.35);
+      }
+
+      #adminBtn {
+        width: 100%;
+        padding: 13px;
+        margin-top: 12px;
+        border: none;
+        background: #555;
+        color: white;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 15px;
+        transition: 0.25s;
+      }
+
+      #adminBtn:hover {
+        background: #444;
+        transform: translateY(-2px);
+      }
+
+      #loginError {
+        color: red;
+        text-align: center;
+        margin-top: 12px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <div class="login-box">
+        <h1>☕ Brew & Co.</h1>
+        <p>Đăng nhập hệ thống</p>
+
+        <input type="text" id="username" placeholder="Tên đăng nhập" />
+
+        <input type="password" id="password" placeholder="Mật khẩu" />
+
+        <button class="login-btn" onclick="login()">Đăng nhập</button>
+
+        <p id="loginError"></p>
+
+        <button id="adminBtn" onclick="window.location.href = 'index.html'">⚙ Quay lại</button>
+      </div>
+    </div>
+
+    <script>
+      function login() {
+        const username = document.getElementById('username').value.trim();
+
+        const password = document.getElementById('password').value.trim();
+
+        const error = document.getElementById('loginError');
+
+        if (username === 'admin' && password === '123456') {
+          error.innerHTML = '✅ Đăng nhập thành công...';
+
+          setTimeout(() => {
+            window.location.href = 'quanly.html';
+          }, 1000);
+        } else {
+          error.innerHTML = '❌ Tài khoản hoặc mật khẩu sai!';
+        }
+      }
+
+      // Enter để đăng nhập
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+          login();
+        }
+      });
+    </script>
+  </body>
+</html>
